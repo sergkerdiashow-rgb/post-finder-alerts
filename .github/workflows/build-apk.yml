@@ -27,10 +27,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.10.2"
-      - name: Generate Alerts 2.0 UI
-        shell: bash
-        run: |
-          if [ -f app/generate_v20.py ]; then python app/generate_v20.py; fi
       - name: Build and export
         shell: bash
         run: |
@@ -52,7 +48,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f build-status.txt build-tail.txt
-          if [ -f app/src/main/java/com/postfinder/alerts/MainActivityV20.java ]; then git add -f app/src/main/java/com/postfinder/alerts/MainActivityV20.java; fi
           if [ "$rc" -eq 0 ]; then git add -f PostFinderAlerts.apk; fi
           git commit -m "Build Post Finder Alerts 2.0 [skip ci]" || true
           branch="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
