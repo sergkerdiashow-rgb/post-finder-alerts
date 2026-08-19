@@ -10,13 +10,16 @@
         android:theme="@android:style/Theme.Material.NoActionBar"
         android:usesCleartextTraffic="false">
         <activity
-            android:name="com.postfinder.alerts.MainActivity"
+            android:name="com.postfinder.alerts.MainActivityV15"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.postfinder.alerts.MainActivity"
+            android:exported="false" />
         <receiver
             android:name="com.postfinder.alerts.AlertReceiver"
             android:exported="true">
