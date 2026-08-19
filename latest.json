@@ -1,6 +1,6 @@
 {
-  "versionCode": 6,
-  "versionName": "1.5",
+  "versionCode": 7,
+  "versionName": "2.0",
   "apk": "https://github.com/sergkerdiashow-rgb/retro-platformer-android/raw/refs/heads/post-finder-alerts-build/PostFinderAlerts.apk",
-  "changelog": "Чистовая полировка Liquid Glass: правильный нижний safe-area; компактные пустые состояния; фильтры без обрезания; более компактные быстрые действия со свайпом вниз; отдельные экраны Настройки, Связь с Post Finder WB и О приложении; полная резервная копия истории и настроек; диагностика последнего реального сигнала от плагина."
+  "changelog": "Intelligence Center 2.0: deal score 0–100, Watchlist, история цен, прогноз прибыли, статусы Куплено/Пропущено, заметки, фильтры Watchlist/90+/купленные, сортировка по score и прибыли, приоритетные уведомления, тихий режим, автоизбранное Watchlist, расширенная аналитика, диагностика Post Finder WB 4.0 и полные резервные копии."
 }
