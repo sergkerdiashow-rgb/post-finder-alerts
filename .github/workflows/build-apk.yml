@@ -1,16 +1,18 @@
-name: Build APK
+name: Verify Post Finder Alerts
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ post-finder-alerts ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ post-finder-alerts ]
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,11 +28,14 @@ jobs:
         with:
           gradle-version: "8.10.2"
 
-      - name: Build debug APK
+      - name: Verify source build
         run: gradle assembleDebug
 
-      - name: Upload APK
+      - name: Upload verification artifact
         uses: actions/upload-artifact@v4
         with:
-          name: retro-platformer-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          name: PostFinderAlerts-verification
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+# Stable release publishing is intentionally disabled here.
+# Production APKs must be signed with credentials stored outside the repository.

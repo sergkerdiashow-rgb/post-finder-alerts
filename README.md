@@ -1,40 +1,84 @@
-# Retro Platformer Android
+# Post Finder Alerts
 
-Original 8-bit Android platformer inspired by classic console games. This is not a Mario clone and does not use Nintendo characters, music, images, sprites, or other copyrighted assets.
+**Post Finder Alerts** — Android-компаньон для плагина **Post Finder WB**. Приложение получает структурированные сигналы от плагина, показывает отдельные push-уведомления и сохраняет историю находок независимо от разрешения уведомлений самого exteraGram.
 
-## Features
+> Текущая версия исходников: **2.0.1** (`versionCode 8`)
 
-- Native Android game built with `Canvas`.
-- Run left and right, jump, and land on platforms.
-- Bricks, bonus blocks, coins, moving enemies, lives, score, camera, and finish flag.
-- Touch controls for landscape screens.
-- All visuals are drawn in code, so the project has no external art assets.
+## Что умеет
 
-## Build APK Locally
+- принимает находки от **Post Finder WB** в реальном времени;
+- отдельные Android-уведомления без необходимости включать уведомления exteraGram;
+- Deal Score **0–100** и приоритетные сделки;
+- Watchlist и автоматическое избранное для целевых товаров;
+- цена предложения, эффективная цена с WB-пошлиной и экономия;
+- история цен и оценка редкости текущей цены;
+- расчёт ожидаемой прибыли;
+- локальная история находок;
+- избранное, прочитано/непрочитано;
+- статусы **Куплено** / **Пропущено**;
+- личные заметки;
+- поиск, фильтры и сортировка по score, прибыли, цене и задержке;
+- аналитика находок;
+- диагностика связи с Post Finder WB;
+- экспорт/импорт истории;
+- полная резервная копия настроек и истории;
+- встроенная проверка обновлений.
 
-Open this folder in Android Studio, then choose:
+## Связь с Post Finder WB
 
-```text
-Build > Build Bundle(s) / APK(s) > Build APK(s)
-```
+Плагин отправляет explicit Android broadcast:
 
-Or from a terminal with JDK, Android SDK, and Gradle installed:
+`com.postfinder.alerts.SHOW_ALERT`
 
-```powershell
-gradle assembleDebug
-```
+Приложение принимает его через `AlertReceiverV20`, сохраняет событие в локальную историю и затем показывает уведомление.
 
-The APK will be created at:
+Диагностика показывает время последнего сигнала, количество принятых сигналов, версию плагина, товар, источник, цену, эффективную цену и время обработки.
 
-```text
-app/build/outputs/apk/debug/app-debug.apk
-```
+## Установка
 
-## Build APK On GitHub
+Стабильные APK должны публиковаться в разделе **Releases** этого репозитория.
 
-This repository includes `.github/workflows/build-apk.yml`.
+1. Открой последний Release.
+2. Скачай `PostFinderAlerts.apk`.
+3. Установи APK поверх предыдущей версии.
 
-1. Open the `Actions` tab.
-2. Choose `Build APK`.
-3. Click `Run workflow`.
-4. Download the `retro-platformer-debug-apk` artifact after the run finishes.
+Package ID сохраняется неизменным:
+
+`com.postfinder.alerts`
+
+## Обновления
+
+`latest.json` использует новый адрес репозитория `sergkerdiashow-rgb/post-finder-alerts` и стабильную ссылку вида:
+
+`releases/latest/download/PostFinderAlerts.apk`
+
+## Android
+
+- Package: `com.postfinder.alerts`
+- minSdk: **23**
+- targetSdk: **35**
+- compileSdk: **35**
+- Java: **17**
+- UI: **Liquid Glass / Intelligence Center 2.0**
+
+## Структура
+
+- `app/src/main/java/com/postfinder/alerts/` — приложение;
+- `app/src/main/res/` — ресурсы и иконки;
+- `app/build.gradle` — Android-конфигурация;
+- `latest.json` — канал обновлений;
+- `.github/workflows/build-apk.yml` — CI-проверка сборки.
+
+Рабочая ветка `post-finder-alerts` содержит только проект Post Finder Alerts. Старые исходники Retro Platformer из неё удалены.
+
+## Безопасность подписи APK
+
+Продакшен-ключ подписи и пароли **не должны храниться в Git**. Текущий `build.gradle` читает параметры подписи только из внешнего окружения, а CI в рабочей ветке выполняет только проверочную сборку и не публикует стабильный APK без безопасно настроенной подписи.
+
+Файлы `*.jks`, `*.keystore` и `*.apk` исключены через `.gitignore`.
+
+Если ключ подписи когда-либо был опубликован, его нужно считать скомпрометированным и отдельно спланировать безопасную ротацию перед дальнейшим распространением приложения.
+
+## Post Finder WB
+
+Плагин **Post Finder WB** хранится отдельно в репозитории `post-finder-wb`, чтобы версии плагина и Android-приложения не смешивались.

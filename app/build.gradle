@@ -2,15 +2,46 @@ plugins {
     id "com.android.application"
 }
 
+def signingStorePath = System.getenv("PF_ALERTS_KEYSTORE_PATH")
+def signingStorePassword = System.getenv("PF_ALERTS_STORE_PASSWORD")
+def signingKeyAlias = System.getenv("PF_ALERTS_KEY_ALIAS")
+def signingKeyPassword = System.getenv("PF_ALERTS_KEY_PASSWORD")
+def hasStableSigning = signingStorePath && signingStorePassword && signingKeyAlias && signingKeyPassword
+
 android {
-    namespace "com.codex.retroplatformer"
+    namespace "com.postfinder.alerts"
     compileSdk 35
 
+    if (hasStableSigning) {
+        signingConfigs {
+            stable {
+                storeFile file(signingStorePath)
+                storePassword signingStorePassword
+                keyAlias signingKeyAlias
+                keyPassword signingKeyPassword
+            }
+        }
+    }
+
     defaultConfig {
-        applicationId "com.codex.retroplatformer"
+        applicationId "com.postfinder.alerts"
         minSdk 23
         targetSdk 35
-        versionCode 1
-        versionName "1.0"
+        versionCode 8
+        versionName "2.0.1"
+    }
+
+    buildTypes {
+        debug {
+            if (hasStableSigning) {
+                signingConfig signingConfigs.stable
+            }
+        }
+        release {
+            minifyEnabled false
+            if (hasStableSigning) {
+                signingConfig signingConfigs.stable
+            }
+        }
     }
 }

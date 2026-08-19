@@ -1,0 +1,12 @@
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
+*.apk
+build-status.txt
+build-tail.txt
+build-status.log
+.idea/
+*.iml
+.DS_Store
