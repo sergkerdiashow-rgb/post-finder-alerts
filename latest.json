@@ -1,6 +1,6 @@
 {
-  "versionCode": 7,
-  "versionName": "2.0",
-  "apk": "https://github.com/sergkerdiashow-rgb/retro-platformer-android/raw/refs/heads/post-finder-alerts-build/PostFinderAlerts.apk",
-  "changelog": "Intelligence Center 2.0: deal score 0–100, Watchlist, история цен, прогноз прибыли, статусы Куплено/Пропущено, заметки, фильтры Watchlist/90+/купленные, сортировка по score и прибыли, приоритетные уведомления, тихий режим, автоизбранное Watchlist, расширенная аналитика, диагностика Post Finder WB 4.0 и полные резервные копии."
+  "versionCode": 8,
+  "versionName": "2.0.1",
+  "apk": "https://github.com/sergkerdiashow-rgb/post-finder-alerts/releases/latest/download/PostFinderAlerts.apk",
+  "changelog": "Maintenance 2.0.1: обновлён адрес репозитория и канал GitHub Releases."
 }
