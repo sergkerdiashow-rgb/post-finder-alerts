@@ -22,11 +22,13 @@ public class AlertReceiver extends BroadcastReceiver {
         String text = intent.getStringExtra("text");
         String link = intent.getStringExtra("link");
         int id = intent.getIntExtra("id", (int)(System.currentTimeMillis() & 0x7fffffff));
-        showNotification(context,
-                title == null || title.isEmpty() ? "🔥 Post Finder WB" : title,
-                text == null ? "Новая находка" : text,
-                link == null ? "" : link,
-                id);
+
+        String safeTitle = title == null || title.isEmpty() ? "🔥 Post Finder WB" : title;
+        String safeText = text == null ? "Новая находка" : text;
+        String safeLink = link == null ? "" : link;
+
+        HistoryStore.add(context, safeTitle, safeText, safeLink);
+        showNotification(context, safeTitle, safeText, safeLink, id);
     }
 
     public static void ensureChannel(Context context) {
@@ -35,7 +37,7 @@ public class AlertReceiver extends BroadcastReceiver {
         NotificationChannel ch = new NotificationChannel(CHANNEL_ID, "Post Finder — новые находки", NotificationManager.IMPORTANCE_HIGH);
         ch.setDescription("Только новые находки Post Finder WB");
         ch.enableVibration(true);
-        ch.setLightColor(Color.MAGENTA);
+        ch.setLightColor(Color.rgb(139, 92, 246));
         ch.enableLights(true);
         nm.createNotificationChannel(ch);
     }
@@ -56,7 +58,7 @@ public class AlertReceiver extends BroadcastReceiver {
         Notification.Builder b = Build.VERSION.SDK_INT >= 26
                 ? new Notification.Builder(context, CHANNEL_ID)
                 : new Notification.Builder(context);
-        b.setSmallIcon(android.R.drawable.stat_notify_more)
+        b.setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setStyle(new Notification.BigTextStyle().bigText(text))
