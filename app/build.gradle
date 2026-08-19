@@ -6,11 +6,26 @@ android {
     namespace "com.postfinder.alerts"
     compileSdk 35
 
+    signingConfigs {
+        stable {
+            storeFile file("postfinder-stable.jks")
+            storePassword "pFbRAZ2xbbd_D6VrAIw78TSb7CVCoEzI"
+            keyAlias "postfinder"
+            keyPassword "pFbRAZ2xbbd_D6VrAIw78TSb7CVCoEzI"
+        }
+    }
+
     defaultConfig {
         applicationId "com.postfinder.alerts"
         minSdk 23
         targetSdk 35
-        versionCode 4
-        versionName "1.3"
+        versionCode 5
+        versionName "1.4"
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.stable
+        }
     }
 }
