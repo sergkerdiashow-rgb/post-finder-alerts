@@ -3,6 +3,8 @@ name: Build Post Finder Alerts APK
 on:
   push:
     branches: [ post-finder-alerts-build ]
+  pull_request:
+    branches: [ post-finder-alerts-build ]
   workflow_dispatch:
 
 permissions:
@@ -14,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -46,5 +50,12 @@ jobs:
           git add -f build-status.txt build-tail.txt
           if [ "$rc" -eq 0 ]; then git add -f PostFinderAlerts.apk; fi
           git commit -m "Build Post Finder Alerts 1.4 [skip ci]" || true
-          git push
+          branch="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          git push origin "HEAD:$branch" || true
           exit "$rc"
+      - name: Upload APK artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PostFinderAlerts-1.4
+          path: PostFinderAlerts.apk
