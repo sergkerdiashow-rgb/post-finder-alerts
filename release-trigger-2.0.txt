@@ -1,1 +1,1 @@
-Post Finder Alerts 2.0 GitHub Release publication trigger #3.
+Post Finder Alerts release publication is handled automatically by GitHub Actions.
