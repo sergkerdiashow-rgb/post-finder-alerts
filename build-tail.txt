@@ -12,9 +12,9 @@ Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :app:preBuild UP-TO-DATE
 > Task :app:preDebugBuild UP-TO-DATE
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
-> Task :app:generateDebugResValues
-> Task :app:javaPreCompileDebug
 > Task :app:checkDebugAarMetadata
+> Task :app:javaPreCompileDebug
+> Task :app:generateDebugResValues
 > Task :app:mapDebugSourceSetPaths
 > Task :app:generateDebugResources
 > Task :app:packageDebugResources
@@ -36,24 +36,26 @@ Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :app:processDebugResources
 > Task :app:desugarDebugFileDependencies
 
-> Task :app:compileDebugJavaWithJavac
+> Task :app:compileDebugJavaWithJavac FAILED
+/home/runner/work/retro-platformer-android/retro-platformer-android/app/src/main/java/com/postfinder/alerts/AlertReceiver.java:86: error: cannot find symbol
+        Intent historyIntent = new Intent(context, MainActivityV15.class);
+                                                   ^
+  symbol:   class MainActivityV15
+  location: class AlertReceiver
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
+1 error
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1787170964794.json
 
-> Task :app:mergeLibDexDebug
-> Task :app:mergeExtDexDebug
-> Task :app:dexBuilderDebug
-> Task :app:mergeDebugJniLibFolders
-> Task :app:mergeDebugNativeLibs NO-SOURCE
-> Task :app:stripDebugDebugSymbols NO-SOURCE
-> Task :app:validateSigningDebug
-> Task :app:writeDebugAppMetadata
-> Task :app:writeDebugSigningConfigVersions
-> Task :app:mergeProjectDexDebug
-> Task :app:packageDebug
-> Task :app:createDebugApkListingFileRedirect
-> Task :app:assembleDebug
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1787170267423.json
+FAILURE: Build failed with an exception.
 
-BUILD SUCCESSFUL in 41s
-31 actionable tasks: 31 executed
+* What went wrong:
+Execution failed for task ':app:compileDebugJavaWithJavac'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --info option to get more log output.
+> Run with --scan to get full insights.
+
+BUILD FAILED in 32s
+21 actionable tasks: 21 executed
