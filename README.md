@@ -1,40 +1,18 @@
-# Retro Platformer Android
+# Post Finder Alerts — build branch
 
-Original 8-bit Android platformer inspired by classic console games. This is not a Mario clone and does not use Nintendo characters, music, images, sprites, or other copyrighted assets.
+Temporary build branch for the companion Android app used by Post Finder WB. Do not merge this branch into `main`.
 
-## Features
+## 1.3
 
-- Native Android game built with `Canvas`.
-- Run left and right, jump, and land on platforms.
-- Bricks, bonus blocks, coins, moving enemies, lives, score, camera, and finish flag.
-- Touch controls for landscape screens.
-- All visuals are drawn in code, so the project has no external art assets.
+- compact top area;
+- iOS-inspired Liquid Glass surfaces;
+- persistent history up to 1000 finds;
+- unread state and favorites;
+- filters: All / Today / WB / Favorites / Unread;
+- sorting by recency, saving, discount, price, and processing speed;
+- statistics dashboard;
+- full post details, copy, share, open source, delete one item;
+- mark all as read;
+- notification actions for History and Source.
 
-## Build APK Locally
-
-Open this folder in Android Studio, then choose:
-
-```text
-Build > Build Bundle(s) / APK(s) > Build APK(s)
-```
-
-Or from a terminal with JDK, Android SDK, and Gradle installed:
-
-```powershell
-gradle assembleDebug
-```
-
-The APK will be created at:
-
-```text
-app/build/outputs/apk/debug/app-debug.apk
-```
-
-## Build APK On GitHub
-
-This repository includes `.github/workflows/build-apk.yml`.
-
-1. Open the `Actions` tab.
-2. Choose `Build APK`.
-3. Click `Run workflow`.
-4. Download the `retro-platformer-debug-apk` artifact after the run finishes.
+GitHub Actions builds `PostFinderAlerts.apk` on this branch.
