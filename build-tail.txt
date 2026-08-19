@@ -13,8 +13,8 @@ Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :app:preDebugBuild UP-TO-DATE
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:javaPreCompileDebug
-> Task :app:generateDebugResValues
 > Task :app:checkDebugAarMetadata
+> Task :app:generateDebugResValues
 > Task :app:mapDebugSourceSetPaths
 > Task :app:generateDebugResources
 > Task :app:packageDebugResources
@@ -27,11 +27,11 @@ Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :app:mergeDebugShaders
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugAssets
 > Task :app:compressDebugAssets
 > Task :app:processDebugJavaRes NO-SOURCE
 > Task :app:checkDebugDuplicateClasses
-> Task :app:processDebugManifestForPackage
 > Task :app:mergeDebugJavaResource
 > Task :app:processDebugResources
 > Task :app:desugarDebugFileDependencies
@@ -40,8 +40,8 @@ Starting a Gradle Daemon (subsequent builds will be faster)
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 
-> Task :app:mergeExtDexDebug
 > Task :app:mergeLibDexDebug
+> Task :app:mergeExtDexDebug
 > Task :app:dexBuilderDebug
 > Task :app:mergeDebugJniLibFolders
 > Task :app:mergeDebugNativeLibs NO-SOURCE
@@ -51,7 +51,7 @@ Note: Recompile with -Xlint:deprecation for details.
 > Task :app:writeDebugSigningConfigVersions
 > Task :app:mergeProjectDexDebug
 > Task :app:packageDebug FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1787169286427.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1787169377508.json
 
 FAILURE: Build failed with an exception.
 
@@ -66,5 +66,5 @@ Execution failed for task ':app:packageDebug'.
 > Run with --scan to get full insights.
 > Get more help at https://help.gradle.org.
 
-BUILD FAILED in 52s
+BUILD FAILED in 44s
 30 actionable tasks: 30 executed
