@@ -1,4 +1,2 @@
-exit_code=0
-result=success
-sha256=1a3809e286336432511db7a1bb4568636346123ec9b9c3b1994331846ed74dab
-size=86418
+exit_code=1
+result=failed
