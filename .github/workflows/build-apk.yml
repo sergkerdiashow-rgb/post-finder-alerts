@@ -1,14 +1,14 @@
-name: Build Post Finder Alerts APK
+name: Verify Post Finder Alerts
 
 on:
   push:
-    branches: [ post-finder-alerts-build ]
+    branches: [ post-finder-alerts ]
   pull_request:
-    branches: [ post-finder-alerts-build ]
+    branches: [ post-finder-alerts ]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -16,9 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -31,71 +28,14 @@ jobs:
         with:
           gradle-version: "8.10.2"
 
-      - name: Build and export
-        shell: bash
-        run: |
-          set +e
-          gradle assembleDebug > build-status.log 2>&1
-          rc=$?
-          echo "exit_code=$rc" > build-status.txt
-          if [ "$rc" -eq 0 ]; then
-            cp app/build/outputs/apk/debug/app-debug.apk PostFinderAlerts.apk
-            echo "result=success" >> build-status.txt
-            echo -n "sha256=" >> build-status.txt
-            sha256sum PostFinderAlerts.apk | awk '{print $1}' >> build-status.txt
-            echo -n "size=" >> build-status.txt
-            wc -c < PostFinderAlerts.apk >> build-status.txt
-          else
-            echo "result=failed" >> build-status.txt
-          fi
-          tail -n 260 build-status.log > build-tail.txt
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f build-status.txt build-tail.txt
-          if [ "$rc" -eq 0 ]; then git add -f PostFinderAlerts.apk; fi
-          git commit -m "Build Post Finder Alerts [skip ci]" || true
-          branch="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          git push origin "HEAD:$branch" || true
-          exit "$rc"
+      - name: Verify source build
+        run: gradle assembleDebug
 
-      - name: Upload APK artifact
-        if: success()
+      - name: Upload verification artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PostFinderAlerts
-          path: PostFinderAlerts.apk
+          name: PostFinderAlerts-verification
+          path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Publish GitHub Release
-        if: success() && github.event_name != 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          VERSION_NAME=$(grep -E 'versionName[[:space:]]+"' app/build.gradle | head -n1 | sed -E 's/.*versionName[[:space:]]+"([^"]+)".*/\1/')
-          VERSION_CODE=$(grep -E 'versionCode[[:space:]]+[0-9]+' app/build.gradle | head -n1 | sed -E 's/.*versionCode[[:space:]]+([0-9]+).*/\1/')
-          TAG="alerts-v${VERSION_NAME}"
-          TITLE="Post Finder Alerts ${VERSION_NAME}"
-          SHA256=$(sha256sum PostFinderAlerts.apk | awk '{print $1}')
-          CHANGELOG=$(python - <<'PY'
-import json
-try:
-    with open('latest.json','r',encoding='utf-8') as f:
-        o=json.load(f)
-    print(o.get('changelog','').strip())
-except Exception:
-    print('')
-PY
-          )
-          NOTES="VersionCode: ${VERSION_CODE}\n\nSHA-256: ${SHA256}"
-          if [ -n "$CHANGELOG" ]; then NOTES="$CHANGELOG\n\n$NOTES"; fi
-
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release edit "$TAG" --title "$TITLE" --notes "$NOTES" --latest
-            gh release upload "$TAG" PostFinderAlerts.apk --clobber
-          else
-            gh release create "$TAG" PostFinderAlerts.apk \
-              --target post-finder-alerts-build \
-              --title "$TITLE" \
-              --notes "$NOTES" \
-              --latest
-          fi
+# Stable release publishing is intentionally disabled here.
+# Production APKs must be signed with credentials stored outside the repository.
