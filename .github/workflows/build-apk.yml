@@ -40,11 +40,11 @@ jobs:
           else
             echo "result=failed" >> build-status.txt
           fi
-          tail -n 160 build-status.log > build-tail.txt
+          tail -n 180 build-status.log > build-tail.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f build-status.txt build-tail.txt
           if [ "$rc" -eq 0 ]; then git add -f PostFinderAlerts.apk; fi
-          git commit -m "Build Post Finder Alerts 1.1 [skip ci]" || true
+          git commit -m "Build Post Finder Alerts 1.3 [skip ci]" || true
           git push
           exit "$rc"
