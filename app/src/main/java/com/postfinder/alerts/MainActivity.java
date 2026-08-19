@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+// Post Finder Alerts companion v1.0
 public class MainActivity extends Activity {
     private TextView status;
 
