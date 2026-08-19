@@ -1,1 +1,0 @@
-Post Finder Alerts release publication is handled automatically by GitHub Actions.

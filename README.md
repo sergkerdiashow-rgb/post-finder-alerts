@@ -1,18 +1,34 @@
-# Post Finder Alerts — build branch
+# Post Finder Alerts
 
-Temporary build branch for the companion Android app used by Post Finder WB. Do not merge this branch into `main`.
+Android companion app for **Post Finder WB**.
 
-## 1.3
+Current release: **2.0** (`versionCode 7`)
 
-- compact top area;
-- iOS-inspired Liquid Glass surfaces;
-- persistent history up to 1000 finds;
-- unread state and favorites;
-- filters: All / Today / WB / Favorites / Unread;
-- sorting by recency, saving, discount, price, and processing speed;
-- statistics dashboard;
-- full post details, copy, share, open source, delete one item;
-- mark all as read;
-- notification actions for History and Source.
+## Features
 
-GitHub Actions builds `PostFinderAlerts.apk` on this branch.
+- real-time alerts from Post Finder WB;
+- deal score 0–100;
+- Watchlist and priority deals;
+- price history and expected profit;
+- local history, favorites, read state and notes;
+- statuses: Purchased / Skipped;
+- filters and sorting by score, profit, price and latency;
+- Post Finder WB connection diagnostics;
+- backup / restore;
+- in-app update checking;
+- GitHub Releases publication after successful builds.
+
+## Android
+
+- package: `com.postfinder.alerts`
+- minSdk: 23
+- targetSdk: 35
+- current UI: Liquid Glass / Intelligence Center 2.0
+
+## Source
+
+This branch contains only the Post Finder Alerts Android project. Legacy Retro Platformer sources are intentionally excluded.
+
+## Releases
+
+Install stable APK builds from the repository **Releases** section.
