@@ -1,34 +1,97 @@
 # Post Finder Alerts
 
-Android companion app for **Post Finder WB**.
+**Post Finder Alerts** — Android-компаньон для плагина **Post Finder WB**. Приложение получает структурированные сигналы от плагина, показывает отдельные push-уведомления и сохраняет историю выгодных находок независимо от разрешения уведомлений самого exteraGram.
 
-Current release: **2.0** (`versionCode 7`)
+> Текущая версия: **2.0** (`versionCode 7`)
 
-## Features
+## Что умеет
 
-- real-time alerts from Post Finder WB;
-- deal score 0–100;
-- Watchlist and priority deals;
-- price history and expected profit;
-- local history, favorites, read state and notes;
-- statuses: Purchased / Skipped;
-- filters and sorting by score, profit, price and latency;
-- Post Finder WB connection diagnostics;
-- backup / restore;
-- in-app update checking;
-- GitHub Releases publication after successful builds.
+- принимает находки от **Post Finder WB** в реальном времени;
+- отдельные Android-уведомления без необходимости включать уведомления exteraGram;
+- Deal Score **0–100** и приоритетные сделки;
+- Watchlist и автоматическое избранное для целевых товаров;
+- цена предложения, эффективная цена с WB-пошлиной и экономия;
+- история цен и оценка редкости текущей цены;
+- расчёт ожидаемой прибыли;
+- локальная история находок;
+- избранное, прочитано/непрочитано;
+- статусы **Куплено** / **Пропущено**;
+- личные заметки;
+- поиск, фильтры и сортировка по score, прибыли, цене и задержке;
+- аналитика находок;
+- диагностика связи с Post Finder WB;
+- экспорт/импорт истории;
+- полная резервная копия настроек и истории;
+- встроенная проверка обновлений.
+
+## Связь с Post Finder WB
+
+Плагин отправляет explicit Android broadcast:
+
+`com.postfinder.alerts.SHOW_ALERT`
+
+Приложение принимает его через `AlertReceiverV20` и сохраняет событие в локальную историю до показа уведомления.
+
+Диагностика показывает, в частности:
+
+- время последнего сигнала;
+- количество принятых сигналов;
+- версию плагина;
+- товар и источник;
+- цену и эффективную цену;
+- время обработки.
+
+## Установка
+
+Стабильные APK публикуются только в разделе **Releases** этого репозитория.
+
+1. Открой последний Release.
+2. Скачай `PostFinderAlerts.apk`.
+3. Установи APK поверх предыдущей версии.
+
+Package ID сохраняется неизменным:
+
+`com.postfinder.alerts`
+
+Поэтому обычные обновления устанавливаются поверх предыдущей версии при сохранении того же ключа подписи.
+
+## Обновления
+
+Приложение проверяет `latest.json` из этого репозитория. Ссылка на APK в нём ведёт на стабильный asset последнего GitHub Release:
+
+`releases/latest/download/PostFinderAlerts.apk`
+
+После успешной CI-сборки GitHub Actions публикует или обновляет Release автоматически.
 
 ## Android
 
-- package: `com.postfinder.alerts`
-- minSdk: 23
-- targetSdk: 35
-- current UI: Liquid Glass / Intelligence Center 2.0
+- Package: `com.postfinder.alerts`
+- minSdk: **23**
+- targetSdk: **35**
+- compileSdk: **35**
+- Java: **17**
+- UI: **Liquid Glass / Intelligence Center 2.0**
 
-## Source
+## Структура
 
-This branch contains only the Post Finder Alerts Android project. Legacy Retro Platformer sources are intentionally excluded.
+- `app/src/main/java/com/postfinder/alerts/` — приложение;
+- `app/src/main/res/` — ресурсы и иконки;
+- `app/build.gradle` — Android-конфигурация;
+- `latest.json` — канал обновлений;
+- `.github/workflows/build-apk.yml` — CI, APK и GitHub Releases.
+
+Ветка `post-finder-alerts` содержит только проект Post Finder Alerts. Старые исходники Retro Platformer из неё удалены.
+
+## Post Finder WB
+
+Плагин **Post Finder WB** хранится отдельно. Для него используется отдельный репозиторий `post-finder-wb`, чтобы версии плагина и Android-приложения не смешивались.
 
 ## Releases
 
-Install stable APK builds from the repository **Releases** section.
+Формат версий приложения:
+
+- tag: `alerts-v2.0`
+- title: `Post Finder Alerts 2.0`
+- asset: `PostFinderAlerts.apk`
+
+SHA-256 готового APK публикуется в описании Release.
