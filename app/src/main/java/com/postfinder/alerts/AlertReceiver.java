@@ -27,8 +27,33 @@ public class AlertReceiver extends BroadcastReceiver {
         String safeText = text == null ? "Новая находка" : text;
         String safeLink = link == null ? "" : link;
 
-        HistoryStore.add(context, safeTitle, safeText, safeLink);
+        HistoryStore.add(
+                context, safeTitle, safeText, safeLink,
+                value(intent, "product"), value(intent, "source_title"),
+                value(intent, "post_text"), value(intent, "product_type"),
+                intent.getIntExtra("price", 0),
+                intent.getIntExtra("effective_price", intent.getIntExtra("price", 0)),
+                intent.getIntExtra("reference_price", 0),
+                intent.getIntExtra("limit", 0),
+                intent.getIntExtra("saving", 0),
+                intent.getIntExtra("wb_extra", 0),
+                intent.getIntExtra("processing_ms", 0),
+                doubleValue(intent, "discount_percent")
+        );
         showNotification(context, safeTitle, safeText, safeLink, id);
+    }
+
+    private static String value(Intent intent, String key) {
+        String value = intent.getStringExtra(key);
+        return value == null ? "" : value;
+    }
+
+    private static double doubleValue(Intent intent, String key) {
+        try {
+            return Double.parseDouble(value(intent, key).replace(',', '.'));
+        } catch (Exception ignored) {
+            return 0.0;
+        }
     }
 
     public static void ensureChannel(Context context) {
