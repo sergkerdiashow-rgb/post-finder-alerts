@@ -1,0 +1,6 @@
+{
+  "versionCode": 5,
+  "versionName": "1.4",
+  "apk": "https://github.com/sergkerdiashow-rgb/retro-platformer-android/raw/refs/heads/post-finder-alerts-build/PostFinderAlerts.apk",
+  "changelog": "Новый iOS/Liquid Glass интерфейс; safe-area под системной строкой; нижняя навигация; рабочие Главная/История/Избранное/Ещё и быстрые действия; красивые bottom-sheet меню; поиск, фильтры и сортировка; полный текст поста; статистика; экспорт/импорт истории; проверка обновлений."
+}
