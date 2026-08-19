@@ -10,22 +10,24 @@
         android:theme="@android:style/Theme.Material.NoActionBar"
         android:usesCleartextTraffic="false">
         <activity
-            android:name="com.postfinder.alerts.MainActivityV15"
+            android:name="com.postfinder.alerts.MainActivityV20"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.postfinder.alerts.MainActivity"
-            android:exported="false" />
+        <activity android:name="com.postfinder.alerts.MainActivityV15" android:exported="false" />
+        <activity android:name="com.postfinder.alerts.MainActivity" android:exported="false" />
+
         <receiver
-            android:name="com.postfinder.alerts.AlertReceiver"
+            android:name="com.postfinder.alerts.AlertReceiverV20"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.postfinder.alerts.SHOW_ALERT" />
             </intent-filter>
         </receiver>
+        <receiver android:name="com.postfinder.alerts.AlertActionReceiverV20" android:exported="false" />
+        <receiver android:name="com.postfinder.alerts.AlertReceiver" android:exported="false" />
     </application>
 </manifest>
