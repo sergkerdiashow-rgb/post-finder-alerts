@@ -2,16 +2,24 @@ plugins {
     id "com.android.application"
 }
 
+def signingStorePath = System.getenv("PF_ALERTS_KEYSTORE_PATH")
+def signingStorePassword = System.getenv("PF_ALERTS_STORE_PASSWORD")
+def signingKeyAlias = System.getenv("PF_ALERTS_KEY_ALIAS")
+def signingKeyPassword = System.getenv("PF_ALERTS_KEY_PASSWORD")
+def hasStableSigning = signingStorePath && signingStorePassword && signingKeyAlias && signingKeyPassword
+
 android {
     namespace "com.postfinder.alerts"
     compileSdk 35
 
-    signingConfigs {
-        stable {
-            storeFile file("postfinder-stable.jks")
-            storePassword "pFbRAZ2xbbd_D6VrAIw78TSb7CVCoEzI"
-            keyAlias "postfinder"
-            keyPassword "pFbRAZ2xbbd_D6VrAIw78TSb7CVCoEzI"
+    if (hasStableSigning) {
+        signingConfigs {
+            stable {
+                storeFile file(signingStorePath)
+                storePassword signingStorePassword
+                keyAlias signingKeyAlias
+                keyPassword signingKeyPassword
+            }
         }
     }
 
@@ -25,7 +33,15 @@ android {
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.stable
+            if (hasStableSigning) {
+                signingConfig signingConfigs.stable
+            }
+        }
+        release {
+            minifyEnabled false
+            if (hasStableSigning) {
+                signingConfig signingConfigs.stable
+            }
         }
     }
 }
