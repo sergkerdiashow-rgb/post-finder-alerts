@@ -28,6 +28,7 @@ public class AlertReceiver extends BroadcastReceiver {
         String safeText = text == null ? "Новая находка" : text;
         String safeLink = link == null ? "" : link;
 
+        AppStateStore.recordSignal(context, intent);
         HistoryStore.add(
                 context, safeTitle, safeText, safeLink,
                 value(intent, "product"), value(intent, "source_title"),
@@ -82,7 +83,8 @@ public class AlertReceiver extends BroadcastReceiver {
             sourcePi = PendingIntent.getActivity(context, id, open, flags);
         }
 
-        Intent historyIntent = new Intent(context, MainActivity.class);
+        Intent historyIntent = new Intent(context, MainActivityV15.class);
+        historyIntent.putExtra("open_page", 1);
         historyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         int historyFlags = PendingIntent.FLAG_UPDATE_CURRENT;
         if (Build.VERSION.SDK_INT >= 23) historyFlags |= PendingIntent.FLAG_IMMUTABLE;
