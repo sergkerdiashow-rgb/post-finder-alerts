@@ -3,9 +3,10 @@ name: Build Post Finder Alerts APK
 on:
   push:
     branches: [ post-finder-alerts-build ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -24,8 +25,21 @@ jobs:
           gradle-version: "8.10.2"
       - name: Build debug APK
         run: gradle assembleDebug
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: post-finder-alerts-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Export APK as small text chunks
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk PostFinderAlerts.apk
+          rm -rf apkparts
+          mkdir -p apkparts
+          base64 -w 0 PostFinderAlerts.apk | fold -w 3000 | split -l 1 -d -a 3 - apkparts/part_
+          {
+            echo -n "sha256="; sha256sum PostFinderAlerts.apk | awk '{print $1}'
+            echo -n "size="; wc -c < PostFinderAlerts.apk
+            echo -n "parts="; find apkparts -name 'part_*' | wc -l
+          } > apkparts/manifest.txt
+      - name: Commit transport chunks
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f PostFinderAlerts.apk apkparts
+          git commit -m "Export PostFinderAlerts.apk small chunks [skip ci]"
+          git push
